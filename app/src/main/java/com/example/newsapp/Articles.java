@@ -1,6 +1,12 @@
 package com.example.newsapp;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Articles {
 
@@ -18,6 +24,7 @@ public class Articles {
     private String name;
     private Source source;
     private String urlToImage;
+    private String time;
 
     public String getUrlToImage() {
         return urlToImage;
@@ -92,6 +99,19 @@ public class Articles {
     }
 
     public String getTime() {
+        Date currentDate = new Date();
+        try {
+            Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(date.substring(1,10));
+            int t=currentDate.compareTo(date1);
+            if(t==1) {
+                time = String.valueOf(t) + " day ago";
+            }else {
+                time = String.valueOf(t) + " days ago";
+            }
+            Log.i("MYTAG",time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return time;
     }
 
@@ -99,5 +119,5 @@ public class Articles {
         this.time = time;
     }
 
-    private String time;
+
 }
