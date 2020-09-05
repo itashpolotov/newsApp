@@ -4,11 +4,14 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Articles {
+public class Articles implements Serializable {
 
     private String author;
 
@@ -25,6 +28,15 @@ public class Articles {
     private Source source;
     private String urlToImage;
     private String time;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getUrlToImage() {
         return urlToImage;
@@ -43,7 +55,8 @@ public class Articles {
     }
 
     public String getDate() {
-        return date;
+        String date1=date.substring(0,10);
+        return date1;
     }
 
     public void setDate(String date) {
@@ -103,8 +116,10 @@ public class Articles {
         try {
             Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(date.substring(1,10));
             int t=currentDate.compareTo(date1);
+            PrettyTime p = new PrettyTime();
+            System.out.println(p.format(new Date()));
             if(t==1) {
-                time = String.valueOf(t) + " day ago";
+                time = String.valueOf(t) + " day";
             }else {
                 time = String.valueOf(t) + " days ago";
             }
